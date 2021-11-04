@@ -31,8 +31,12 @@ func (t Triangle) Area() float64 {
 	return 0.5 * t.Base * t.Height
 }
 
-func Perimeter(rectangle Rectangle) float64 {
-	return 2 * (rectangle.Width + rectangle.Height)
+func (r Rectangle) Perimeter() float64 {
+	return 2 * (r.Width + r.Height)
+}
+
+func (c Circle) Perimeter() float64 {
+	return 2 * math.Pi * c.Radius
 }
 
 func Area(rectangle Rectangle) float64 {

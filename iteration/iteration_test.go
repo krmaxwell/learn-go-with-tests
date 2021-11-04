@@ -5,12 +5,24 @@ import (
 )
 
 func TestRepeat(t *testing.T) {
-	repeated := Repeat("a", 5)
-	expected := "aaaaa"
+	t.Run("Repeating 'a' 5 times", func(t *testing.T) {
+		repeated := Repeat("a", 5)
+		expected := "aaaaa"
 
-	if repeated != expected {
-		t.Errorf("Expected %q but got %q", expected, repeated)
-	}
+		if repeated != expected {
+			t.Errorf("Expected %q but got %q", expected, repeated)
+		}
+	})
+
+	t.Run("Repeating 'a' 3 times", func(t *testing.T) {
+		repeated := Repeat("a", 3)
+		expected := "aaa"
+
+		if repeated != expected {
+			t.Errorf("Expected %q but got %q", expected, repeated)
+		}
+	})
+
 }
 
 func BenchmarkRepeat(b *testing.B) {

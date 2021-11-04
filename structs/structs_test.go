@@ -3,25 +3,22 @@ package main
 import "testing"
 
 func TestPerimeter(t *testing.T) {
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 10.0}
-		got := rectangle.Perimeter()
-		want := 40.0
+	perimeterTests := []struct {
+		name         string
+		shape        Shape
+		hasPerimeter float64
+	}{
+		{name: "Rectangle", shape: Rectangle{Width: 10.0, Height: 10.0}, hasPerimeter: 40.0},
+		{name: "Circle", shape: Circle{Radius: 10.0}, hasPerimeter: 62.831853071795865},
+	}
 
-		if got != want {
-			t.Errorf("got %.2f want %.2f", got, want)
+	for _, tt := range perimeterTests {
+		got := tt.shape.Perimeter()
+		if got != tt.hasPerimeter {
+			t.Errorf("%#v got %g want %g", tt.shape, got, tt.hasPerimeter)
 		}
-	})
+	}
 
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10.0}
-		got := circle.Perimeter()
-		want := 62.831853071795865
-
-		if got != want {
-			t.Errorf("got %.2f want %.2f", got, want)
-		}
-	})
 }
 
 func TestArea(t *testing.T) {

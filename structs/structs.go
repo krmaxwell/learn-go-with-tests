@@ -4,6 +4,7 @@ import "math"
 
 type Shape interface {
 	Area() float64
+	Perimeter() float64
 }
 type Rectangle struct {
 	Width  float64
@@ -39,6 +40,7 @@ func (c Circle) Perimeter() float64 {
 	return 2 * math.Pi * c.Radius
 }
 
-func Area(rectangle Rectangle) float64 {
-	return rectangle.Width * rectangle.Height
+func (t Triangle) Perimeter() float64 {
+	// insufficient geometric information
+	return 0
 }

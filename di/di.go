@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
-	"os"
 )
 
 func Greet(writer io.Writer, name string) {
@@ -16,5 +16,5 @@ func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	Greet(os.Stdout, "Niky")
+	log.Fatal(http.ListenAndServe(":9376", http.HandlerFunc(MyGreeterHandler)))
 }

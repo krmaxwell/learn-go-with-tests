@@ -44,9 +44,7 @@ func SpellNumber(arabic int) string {
 	}
 
 	if arabic >= 100 {
-		if len(result) > 0 {
-			result += " "
-		}
+		prependSpace(&result)
 		hundred := arabic / 100
 		result += numbersUnderTwenty[hundred] + " hundred"
 		arabic -= (arabic / 100) * 100
@@ -56,18 +54,21 @@ func SpellNumber(arabic int) string {
 	}
 
 	if arabic >= 20 {
-		if len(result) > 0 {
-			result += " "
-		}
+		prependSpace(&result)
 		ten := (arabic / 10) * 10
 		result += multiplesOfTen[ten]
 		arabic -= ten
 	}
+
 	if arabic > 0 {
-		if len(result) > 0 {
-			result += " "
-		}
+		prependSpace(&result)
 		result += numbersUnderTwenty[arabic]
 	}
 	return result
+}
+
+func prependSpace(result *string) {
+	if len(*result) > 0 {
+		*result += " "
+	}
 }

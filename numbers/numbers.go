@@ -37,9 +37,30 @@ func SpellNumber(arabic int) string {
 
 	var result string
 
+	if arabic >= 1000 {
+		thousand := arabic / 1000
+		result = numbersUnderTwenty[thousand] + " thousand,"
+		arabic -= (arabic / 1000) * 1000
+	}
+
+	if arabic >= 100 {
+		if len(result) > 0 {
+			result += " "
+		}
+		hundred := arabic / 100
+		result += numbersUnderTwenty[hundred] + " hundred"
+		arabic -= (arabic / 100) * 100
+		if arabic > 0 {
+			result += " and"
+		}
+	}
+
 	if arabic >= 20 {
+		if len(result) > 0 {
+			result += " "
+		}
 		ten := (arabic / 10) * 10
-		result = multiplesOfTen[ten]
+		result += multiplesOfTen[ten]
 		arabic -= ten
 	}
 	if arabic > 0 {

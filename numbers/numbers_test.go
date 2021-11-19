@@ -40,6 +40,15 @@ func TestNumbers(t *testing.T) {
 		{76, "seventy six"},
 		{81, "eighty one"},
 		{99, "ninety nine"},
+		{100, "one hundred"},
+		{110, "one hundred and ten"},
+		{135, "one hundred and thirty five"},
+		{200, "two hundred"},
+		{300, "three hundred"},
+		{310, "three hundred and ten"},
+		{666, "six hundred and sixty six"},
+		{1501, "one thousand, five hundred and one"},
+		{12609, "twelve thousand, six hundred and nine"},
 	}
 
 	for _, test := range cases {

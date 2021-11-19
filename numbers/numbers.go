@@ -43,23 +43,37 @@ func SpellNumber(arabic int) string {
 		arabic -= (arabic / 1000) * 1000
 	}
 
-	if arabic >= 100 {
+	result = processHundreds(&arabic, result)
+
+	result = processTens(&arabic, result)
+
+	return processUnderTwenty(arabic, result)
+}
+
+func processHundreds(arabic *int, result string) string {
+	if *arabic >= 100 {
 		prependSpace(&result)
-		hundred := arabic / 100
-		result += numbersUnderTwenty[hundred] + " hundred"
-		arabic -= (arabic / 100) * 100
-		if arabic > 0 {
+		nearestHundred := *arabic / 100
+		result += numbersUnderTwenty[nearestHundred] + " hundred"
+		*arabic %= 100
+		if *arabic > 0 {
 			result += " and"
 		}
 	}
+	return result
+}
 
-	if arabic >= 20 {
+func processTens(arabic *int, result string) string {
+	if *arabic >= 20 {
 		prependSpace(&result)
-		ten := (arabic / 10) * 10
-		result += multiplesOfTen[ten]
-		arabic -= ten
+		nearestTen := (*arabic / 10) * 10
+		result += multiplesOfTen[nearestTen]
+		*arabic %= 10
 	}
+	return result
+}
 
+func processUnderTwenty(arabic int, result string) string {
 	if arabic > 0 {
 		prependSpace(&result)
 		result += numbersUnderTwenty[arabic]

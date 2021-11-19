@@ -29,6 +29,17 @@ func TestNumbers(t *testing.T) {
 		{17, "seventeen"},
 		{18, "eighteen"},
 		{19, "nineteen"},
+		{20, "twenty"},
+		{21, "twenty one"},
+		{22, "twenty two"},
+		{30, "thirty"},
+		{37, "thirty seven"},
+		{42, "forty two"},
+		{53, "fifty three"},
+		{69, "sixty nine"},
+		{76, "seventy six"},
+		{81, "eighty one"},
+		{99, "ninety nine"},
 	}
 
 	for _, test := range cases {

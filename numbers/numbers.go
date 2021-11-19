@@ -22,6 +22,31 @@ var numbersUnderTwenty = map[int]string{
 	19: "nineteen",
 }
 
+var multiplesOfTen = map[int]string{
+	20: "twenty",
+	30: "thirty",
+	40: "forty",
+	50: "fifty",
+	60: "sixty",
+	70: "seventy",
+	80: "eighty",
+	90: "ninety",
+}
+
 func SpellNumber(arabic int) string {
-	return numbersUnderTwenty[arabic]
+
+	var result string
+
+	if arabic >= 20 {
+		ten := (arabic / 10) * 10
+		result = multiplesOfTen[ten]
+		arabic -= ten
+	}
+	if arabic > 0 {
+		if len(result) > 0 {
+			result += " "
+		}
+		result += numbersUnderTwenty[arabic]
+	}
+	return result
 }

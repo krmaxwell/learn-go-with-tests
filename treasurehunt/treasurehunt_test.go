@@ -13,9 +13,9 @@ func TestTreasureHunt(t *testing.T) {
 		{33, 15, 51, 31, 35},
 		{21, 52, 33, 13, 23},
 	}
+	firstLocation := MapLocation{X: 1, Y: 1}
 
 	t.Run("Find first location", func(t *testing.T) {
-		firstLocation := MapLocation{X: 1, Y: 1}
 		got := myTreasureMap.findNextTreasureLocation(firstLocation)
 		want := MapLocation{X: 3, Y: 4}
 
@@ -24,4 +24,12 @@ func TestTreasureHunt(t *testing.T) {
 		}
 	})
 
+	t.Run("Find treasure location", func(t *testing.T) {
+		got := myTreasureMap.FindTreasure()
+		want := MapLocation{X: 3, Y: 3}
+
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
 }

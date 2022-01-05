@@ -1,5 +1,10 @@
 package queens
 
+import (
+	"fmt"
+	"math"
+)
+
 type Board [][]bool
 
 func CreateBoard(order int) Board {
@@ -10,34 +15,79 @@ func CreateBoard(order int) Board {
 	return board
 }
 
-func ValidateBoard(b Board) bool {
-	// returns true if board has one true value on each row, column, and diagonal
+// solution based on https://medium.com/@egemenokte/solving-the-8-queens-puzzle-recursively-with-python-6440078b68ad
 
+func PossibleLocation(b Board, rowCandidate, colCandidate int) bool {
+
+	// test the actual location
+	if b[rowCandidate][colCandidate] {
+		return false
+	}
+
+	// test every row on the candidate column
 	for _, row := range b {
-		if !validateSlice(row) {
+		if row[colCandidate] {
 			return false
 		}
 	}
 
-	for col := range b[0] {
-		colSlice := make([]bool, len(b[0]))
-		for row := range b {
-			colSlice = append(colSlice, b[row][col])
-		}
-		if !validateSlice(colSlice) {
+	// test every column on the candidate row
+	for column := range b[rowCandidate] {
+		if b[rowCandidate][column] {
 			return false
 		}
 	}
 
+	// go through the whole board
+	for row := range b {
+		for column := range b[row] {
+			if b[row][column] && math.Abs(float64(row-rowCandidate)) == math.Abs(float64(column-colCandidate)) {
+				return false
+			}
+		}
+	}
 	return true
 }
 
-func validateSlice(s []bool) bool {
+func CountQueens(b Board) int {
 	count := 0
-	for _, cell := range s {
-		if cell {
-			count++
+	for row := range b {
+		for column := range b[row] {
+			if b[row][column] {
+				count++
+			}
 		}
 	}
-	return count == 1
+	return count
+}
+
+func SolveQueens(b Board) Board {
+	for row := range b {
+		for column := range b[row] {
+			if PossibleLocation(b, row, column) {
+				b[row][column] = true
+				SolveQueens(b) // recursively solve
+				if CountQueens(b) == len(b) {
+					// we've placed all our queens
+					return b
+				}
+				// this means we couldn't find a solution including this location
+				b[row][column] = false
+			}
+		}
+	}
+	return Board{}
+}
+
+func PrintBoard(b Board) {
+	for row := range b {
+		for column := range b[row] {
+			if b[row][column] {
+				fmt.Print("Q")
+			} else {
+				fmt.Print(".")
+			}
+		}
+		fmt.Println()
+	}
 }
